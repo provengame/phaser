@@ -43,47 +43,56 @@ body{
     cursor: pointer;
 }
 
-@media screen and (max-width: 1220px) {
+@media screen and (max-width: 1370px) {
     #papelera{
-        width: 160px;
+        width: 120px;
     }
     #arcade{
-        width: 160px;
+        width: 120px;
+    }
+}
+
+@media screen and (max-width: 1220px) {
+    #papelera{
+        width: 110px;
+    }
+    #arcade{
+        width: 110px;
     }
 }
 
 @media screen and (max-width: 1020px) {
     #papelera{
-        width: 140px;
+        width: 100px;
     }
     #arcade{
-        width: 140px;
+        width: 100px;
     }
 }
 
 @media screen and (max-width: 820px) {
     #papelera{
-        width: 120px;
+        width: 90px;
     }
     #arcade{
-        width: 120px;
+        width: 90px;
     }
 }
 
 @media screen and (max-width: 620px) {
     #papelera{
-        width: 100px;
+        width: 80px;
     }
     #arcade{
-        width: 100px;
+        width: 80px;
     }
 }
 @media screen and (max-width: 420px) {
     #papelera{
-        width: 80px;
+        width: 70px;
     }
     #arcade{
-        width: 80px;
+        width: 70px;
     }
 }
 
