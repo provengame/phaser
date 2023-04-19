@@ -1,6 +1,6 @@
 /* FONDO */
-.bg-image{
-    background-image: url('fondo-morado.jpg');
+body{
+    background: url('fondo-morado.jpg')  50% fixed;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -43,6 +43,49 @@
     cursor: pointer;
 }
 
+@media screen and (max-width: 1220px) {
+    #papelera{
+        width: 160px;
+    }
+    #arcade{
+        width: 160px;
+    }
+}
+
+@media screen and (max-width: 1020px) {
+    #papelera{
+        width: 140px;
+    }
+    #arcade{
+        width: 140px;
+    }
+}
+
+@media screen and (max-width: 820px) {
+    #papelera{
+        width: 120px;
+    }
+    #arcade{
+        width: 120px;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    #papelera{
+        width: 100px;
+    }
+    #arcade{
+        width: 100px;
+    }
+}
+@media screen and (max-width: 420px) {
+    #papelera{
+        width: 80px;
+    }
+    #arcade{
+        width: 80px;
+    }
+}
 
 /* BARRA DE NAVEGACIÓN */
 
@@ -205,12 +248,4 @@
         bottom: -90px;
     }
 
-.icon {
-    width: 100px;
-}
 
-@media (min-width: 1400px) { 
-    .icon {
-        width: 200px;
-    }
- }
