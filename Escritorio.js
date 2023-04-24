@@ -75,3 +75,26 @@ for (let i = 0; i < 6; i++) {
 }
 
 showCalendar();
+
+// Ventanas
+
+arcade.addEventListener("click", (e) => {
+  const jsFrame = new JSFrame();
+  const frame = jsFrame.create({
+    title: 'Window',
+    left: 300, top: 70, width: 1050, height: 600,
+    movable: true, // Enable to be moved by mouse
+    resizable: true, // Enable to be resized by mouse
+    appearanceName: 'yosemite',//Preset name is 'yosemite','redstone','popup'
+    style: {
+        backgroundColor: 'rgba(220,220,220,0.8)',
+    },
+    url: 'part10.html',
+  });
+  frame.on('minimizeButton', 'click', (_frame, evt) => {
+    _frame.minimize();
+  });
+
+  // Show the window
+  frame.show();
+});
