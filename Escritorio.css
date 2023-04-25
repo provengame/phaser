@@ -1,6 +1,6 @@
 /* FONDO */
 body{
-    background: url('fondo-morado.jpg')  50% fixed;
+    background: url('fondo/fondo-morado.jpg')  50% fixed;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -184,6 +184,11 @@ body{
     padding: 10px;
 }
 
+/* SUBMENU 4 */
+#submenu-4 {
+    left: 180px;
+    
+}
 
 /* CALENDARIO */
 
