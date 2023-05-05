@@ -3,6 +3,14 @@ body{
     background: url('fondo/fondo-morado.jpg')  50% fixed;
     background-size: cover;
     background-repeat: no-repeat;
+    margin: 30px;
+}
+
+.game-over {
+    font-size: 48px;
+    color: #fff;
+    background-color: #000;
+    padding: 20px;
 }
 
 #papelera-bg {
@@ -141,6 +149,10 @@ body{
     box-shadow: 4px 4px rgb(63, 136, 197)
 }
 
+
+
+
+
 /* MENÚ 2 */
 
 #reloj{ /* Cambia el color de los números de hora */
@@ -189,6 +201,16 @@ body{
     left: 180px;
     
 }
+
+/*SUBMENÚ TEMAS*/
+#submenu-colores{ /* Cambia el fondo de todo el submenú */
+    position: absolute;
+    background-color: black;
+    margin-left: 180px;
+    bottom: 10px;
+}
+
+
 
 /* CALENDARIO */
 
