@@ -85,11 +85,14 @@ arcade.addEventListener("click", (e) => {
     left: 300, top: 70, width: 1050, height: 600,
     movable: true, // Enable to be moved by mouse
     resizable: true, // Enable to be resized by mouse
-    appearanceName: 'yosemite',//Preset name is 'yosemite','redstone','popup'
+    appearanceName: 'redstone',
     style: {
         backgroundColor: 'rgba(220,220,220,0.8)',
     },
     url: 'part10.html',
+    onClose: function(_frame, evt) {
+      _frame.close();
+    }
   });
   frame.on('minimizeButton', 'click', (_frame, evt) => {
     _frame.minimize();

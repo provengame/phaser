@@ -6,12 +6,6 @@ body{
     margin: 30px;
 }
 
-.game-over {
-    font-size: 48px;
-    color: #fff;
-    background-color: #000;
-    padding: 20px;
-}
 
 #papelera-bg {
     padding: 18px;
