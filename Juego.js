@@ -95,15 +95,21 @@ function create ()
     //  Input Events
     cursors = this.input.keyboard.createCursorKeys();
 
-    //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
-   
+// Crear el grupo de estrellas original
+stars = this.physics.add.group({
+    key: 'ball-tlb',
+    repeat: 2,
+    setXY: { x: 600, y: 350, stepX: 110 }
+});
 
+// Crear el grupo de estrellas duplicadas
+duplicatedStars = this.physics.add.group({
+    key: 'ball-tlb',
+    repeat: 2,
+    setXY: { x: 710, y: 350, stepX: 110 }
+    
+});
 
-    stars = this.physics.add.group({
-        key: 'ball-tlb',
-        repeat: 2 ,
-        setXY: { x: 600, y: 350, stepX: 110 }
-    });
 
     stars.children.iterate(function (child) {
 
@@ -128,10 +134,11 @@ function create ()
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(stars, platforms);
     this.physics.add.collider(bombs, platforms);
+    this.physics.add.collider(duplicatedStars, platforms);
 
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
     this.physics.add.overlap(player, stars, collectStar, null, this);
-
+    this.physics.add.overlap(player, duplicatedStars, collectStar, null, this);
     this.physics.add.collider(player, bombs, hitBomb, null, this);
 }
 
@@ -177,7 +184,7 @@ function update ()
     this.cameras.main.scrollX = player.x - 400;
 }
 
-function collectStar (player, star)
+function collectStar (player, star, duplicatedStar)
 {
     star.disableBody(true, true);
 
@@ -193,7 +200,7 @@ function collectStar (player, star)
             child.enableBody(true, child.x, 0, true, true);
 
         });
-
+        
         var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
 
         var bomb = bombs.create(x, 16, 'bomb');
