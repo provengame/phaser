@@ -189,4 +189,61 @@ notas.addEventListener("click", (e) => {
 });
 
 
+excel.addEventListener("click", (e) => {
+  const jsFrame = new JSFrame();
+  const frame = jsFrame.create({
+    title: 'Hoja de calculo',
+    left: 300, top: 70, width: 500, height: 400,
+    movable: true, // Enable to be moved by mouse
+    resizable: true, // Enable to be resized by mouse
+    appearanceName: 'redstone',
+    style: {
+        backgroundColor: 'rgba(220,220,220,0.8)',
+    },
+    url: 'excel.html',
+    onClose: function(_frame, evt) {
+      _frame.close();
+    },
+    
+  });
+
+  frame.setControl({
+    maximizeButton: 'maximizeButton',
+    minimizeButton: 'minimizeButton',
+    demaximizeButton: 'restoreButton',
+    maximizeWithoutTitleBar: true,
+    restoreKey: 'Escape',
+    minimizeButton: 'minimizeButton',
+    deminimizeButton: 'deminimizeButton',
+    hideButton: 'closeButton',
+    animation: true,
+    animationDuration: 90,
+  });
+
+
+  // hace que se maximice al clickar en el boton
+  frame.on('maximizeButton', 'click', (_frame, evt) => {
+
+    _frame.control.doMaximize({
+        hideTitleBar: false,
+        duration: 100,
+        restoreKey: 'Escape',
+        restoreDuration: 100,
+        callback: (frame, info) => {
+            frame.requestFocus();
+        },
+        restoreCallback: (frame, info) => {
+            jsFrame.showToast({
+                text: frame.getName() + ' ' + info.eventType
+            });
+        },
+    });
+});
+
+  // Show the window
+  frame.show();
+});
+
+
+
 

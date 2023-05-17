@@ -76,10 +76,12 @@ function create ()
     platforms.create(2000, 550, 'suelo3').setScale().refreshBody();
     platforms.create(1600, 300, 'flotante').setScale().refreshBody();
     
-    pinchos = this.physics.add.group();
+    
+    var pinchos = this.physics.add.staticGroup();
+    pinchos.create(950, 987, 'pinchos').setScale().refreshBody();
 
-    platforms.create(950, 987, 'pinchos').setScale().refreshBody();
-    platforms.create(2783, 987, 'pincho').setScale().refreshBody();
+    var pincho = this.physics.add.staticGroup();
+    pinchos.create(2783, 987, 'pincho').setScale().refreshBody();
     
     //  Now let's create some ledges
     
@@ -182,7 +184,9 @@ triplicatedStars = this.physics.add.group({
     }, null, this);
 
     this.physics.add.collider(player, bombs, hitBomb, null, this);
-    this.physics.add.collider(player, pinchos, hitBomb, null, this)
+    this.physics.add.collider(player, pinchos, hitBomb, null, this);
+
+    this.physics.add.collider(player, pincho, hitBomb, null, this);
     
 
     // 
@@ -267,23 +271,24 @@ function update ()
 
 
 
-function hitBomb(player, bomb) {
-    this.physics.pause();
-    player.setTint(0xff0000);
-    player.anims.play("turn");
-    gameOver = true;
+function hitBomb(player, entity) {
+    if (entity.texture.key === 'bomb' || entity.texture.key === 'pinchos' || entity.texture.key === 'pincho' ) {
+        this.physics.pause();
+        player.setTint(0xff0000);
+        player.anims.play("turn");
+        gameOver = true;
 
-    this.add
-    .text(200, 250, "Game Over", {
-        fontSize: "230px",
-        fill: "rgb(41, 198, 238)",
-        stroke: "black",
-        strokeThickness: 7,
-        fontWeight: 9000,
-        margin: "5px",
-
-    })
-    .setScrollFactor(0)
-    
+        this.add
+            .text(200, 250, "Game Over", {
+                fontSize: "230px",
+                fill: "rgb(41, 198, 238)",
+                stroke: "black",
+                strokeThickness: 7,
+                fontWeight: 9000,
+                margin: "5px",
+            })
+            .setScrollFactor(0);
+    }
 }
+
 

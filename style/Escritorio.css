@@ -70,6 +70,25 @@ body{
     padding-bottom: 24px;
     cursor: pointer;
 }
+#excel-bg {
+    padding: 18px;
+    width: 180px;
+}
+
+#excel {
+    padding: 15px;
+    background-color: transparent;
+    transition: all 0.2s ease-in-out;
+    padding-bottom: 24px;
+}
+
+#excel:hover {
+    background-color: rgba(161, 161, 161, 0.438);
+    padding: 15px;
+    border: 1px solid #aaa;
+    padding-bottom: 24px;
+    cursor: pointer;
+}
 
 @media screen and (max-width: 1370px) {
     #papelera{
