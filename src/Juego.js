@@ -26,6 +26,7 @@ var score = 0;
 var gameOver = false;
 var scoreText;
 
+
 var game = new Phaser.Game(config);
 
 function preload ()
@@ -64,24 +65,26 @@ function create ()
     platforms.create(3747, 625, 'pared').setScale().refreshBody();
 
 
-    platforms.create(950, 700, 'flotante').setScale().refreshBody();
+    platforms.create(950, 500, 'flotante').setScale().refreshBody();
 
-    platforms.create(1500, 500, 'flotante2').setScale().refreshBody();
-    platforms.create(400, 500, 'flotante2').setScale().refreshBody();
+    platforms.create(1500, 700, 'flotante2').setScale().refreshBody();
+    platforms.create(450, 700, 'flotante2').setScale().refreshBody();
+    platforms.create(950, 200, 'flotante2').setScale().refreshBody();
     
+
+    platforms.create(400, 300, 'suelo3').setScale().refreshBody();
+    platforms.create(2000, 550, 'suelo3').setScale().refreshBody();
+    platforms.create(1600, 300, 'flotante').setScale().refreshBody();
+    
+    pinchos = this.physics.add.group();
+
     platforms.create(950, 987, 'pinchos').setScale().refreshBody();
     platforms.create(2783, 987, 'pincho').setScale().refreshBody();
     
-
-    platforms.create(950, 300, 'suelo3').setScale().refreshBody();
-    platforms.create(1700, 200, 'flotante').setScale().refreshBody();
     //  Now let's create some ledges
     
-    
-
-    
     // The player and its settings
-    player = this.physics.add.sprite(50, 250, 'dude');
+    player = this.physics.add.sprite(50, 850, 'dude');
 
     //  Player physics properties. Give the little guy a slight bounce.
     player.setBounce(0.2);
@@ -161,6 +164,7 @@ triplicatedStars = this.physics.add.group({
     this.physics.add.collider(triplicatedStars, platforms);
     this.physics.add.collider(stars, duplicatedStars);
     this.physics.add.collider(stars, triplicatedStars);
+    
 
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
     this.physics.add.overlap(player, stars, function(player, star) {
@@ -178,6 +182,8 @@ triplicatedStars = this.physics.add.group({
     }, null, this);
 
     this.physics.add.collider(player, bombs, hitBomb, null, this);
+    this.physics.add.collider(player, pinchos, hitBomb, null, this)
+    
 
     // 
     function collectStar(player, star) {
@@ -223,7 +229,7 @@ function update ()
 
     if (cursors.up.isDown)
     {
-        player.setVelocityY(-340);
+        player.setVelocityY(-375);
         player.anims.play('up', false)
     }
 
@@ -275,9 +281,9 @@ function hitBomb(player, bomb) {
         strokeThickness: 7,
         fontWeight: 9000,
         margin: "5px",
-        
-        
+
     })
     .setScrollFactor(0)
     
 }
+
