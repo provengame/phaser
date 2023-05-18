@@ -78,7 +78,16 @@ showCalendar();
 
 // Ventanas
 
+var arcadeOpen = false;
+
 arcade.addEventListener("click", (e) => {
+
+  if (arcadeOpen) {
+    return
+  };
+
+  arcadeOpen = true;
+
   const jsFrame = new JSFrame();
   const frame = jsFrame.create({
     title: 'Juego Arcade',
@@ -87,24 +96,19 @@ arcade.addEventListener("click", (e) => {
     resizable: true, // Enable to be resized by mouse
     appearanceName: 'redstone',
     style: {
-        backgroundColor: 'rgba(220,220,220,0.8)',
+      backgroundColor: 'rgba(220,220,220,0.8)',
     },
     url: 'Juego.html',
-    onClose: function(_frame, evt) {
-      _frame.close();
-    },
-    
+
   });
 
   frame.setControl({
     maximizeButton: 'maximizeButton',
-    minimizeButton: 'minimizeButton',
     demaximizeButton: 'restoreButton',
     maximizeWithoutTitleBar: true,
     restoreKey: 'Escape',
     minimizeButton: 'minimizeButton',
     deminimizeButton: 'deminimizeButton',
-    hideButton: 'closeButton',
     animation: true,
     animationDuration: 90,
   });
@@ -114,20 +118,41 @@ arcade.addEventListener("click", (e) => {
   frame.on('maximizeButton', 'click', (_frame, evt) => {
 
     _frame.control.doMaximize({
-        hideTitleBar: false,
-        duration: 100,
-        restoreKey: 'Escape',
-        restoreDuration: 100,
-        callback: (frame, info) => {
-            frame.requestFocus();
-        },
-        restoreCallback: (frame, info) => {
-            jsFrame.showToast({
-                text: frame.getName() + ' ' + info.eventType
-            });
-        },
+      hideTitleBar: false,
+      duration: 100,
+      restoreKey: 'Escape',
+      restoreDuration: 100,
+      callback: (frame, info) => {
+        frame.requestFocus();
+      },
+      restoreCallback: (frame, info) => {
+        jsFrame.showToast({
+          text: frame.getName() + ' ' + info.eventType
+        });
+      },
     });
-});
+  });
+
+
+  frame.on('closeButton', 'click', (_frame, evt) => {
+
+    _frame.control.doHide({
+      duration: 140,
+      //非表示にするときのアニメーションの終点
+      align: 'CENTER_BOTTOM',
+      //非表示処理が終了したときのコールバックを受け取る関数
+      callback: (frame, info) => {
+          jsFrame.showToast({
+              text: frame.getName() + ' ' + info.eventType
+          });
+
+          //非表示にした後、ウィンドウを閉じる（削除する）
+          _frame.closeFrame();
+      }
+  });
+    arcadeOpen = false;
+  });
+
 
   // Show the window
   frame.show();

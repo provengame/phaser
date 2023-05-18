@@ -161,15 +161,46 @@ Bolas4 = this.physics.add.group({
     
 });
 
+Bolas5 = this.physics.add.group({
+    key: 'ball-tlb',
+    repeat: 4,
+    setXY: { x: 1175, y: 850, stepX: 130 }
+    
+});
+
+Bolas6 = this.physics.add.group({
+    key: 'ball-tlb',
+    repeat: 1,
+    setXY: { x: 1425, y: 150, stepX: 350 }
+    
+});
+
+Bolas7 = this.physics.add.group({
+    key: 'ball-tlb',
+    repeat: 2,
+    setXY: { x: 1870, y: 350, stepX: 130 }
+    
+});
+
+Bolas8 = this.physics.add.group({
+    key: 'ball-tlb',
+    repeat: 3,
+    setXY: { x: 2200, y: 850, stepX: 130 }
+    
+});
+
+Bolas9 = this.physics.add.group({
+    key: 'ball-tlb',
+    repeat: 2,
+    setXY: { x: 2670, y: 350, stepX: 130 }
+    
+});
 
 
-
-    bolas.children.iterate(function (child) {
-
-        //  Give each bola a slightly different bounce
-        child.setBounceY(Phaser.Math.FloatBetween(0.0, 0.1));
-
-    });
+bolas.children.iterate(function (child) {
+    //  Give each bola a slightly different bounce
+    child.setBounceY(Phaser.Math.FloatBetween(0.0, 0.1));
+});
 
     bombs = this.physics.add.group();
 
@@ -190,10 +221,20 @@ Bolas4 = this.physics.add.group({
     this.physics.add.collider(Bolas2, platforms);
     this.physics.add.collider(Bolas3, platforms);
     this.physics.add.collider(Bolas4, platforms);
+    this.physics.add.collider(Bolas5, platforms);
+    this.physics.add.collider(Bolas6, platforms);
+    this.physics.add.collider(Bolas7, platforms);
+    this.physics.add.collider(Bolas8, platforms);
+    this.physics.add.collider(Bolas9, platforms);
     this.physics.add.collider(bolas, bolas);
     this.physics.add.collider(bolas, Bolas2);
     this.physics.add.collider(bolas, Bolas3);
     this.physics.add.collider(bolas, Bolas4);
+    this.physics.add.collider(bolas, Bolas5);
+    this.physics.add.collider(bolas, Bolas6);
+    this.physics.add.collider(bolas, Bolas7);
+    this.physics.add.collider(bolas, Bolas8);
+    this.physics.add.collider(bolas, Bolas9);
 
     //  Checks to see if the player overlaps with any of the bolas, if he does call the collectStar function
     this.physics.add.overlap(player, bolas, function(player, bolas) {
@@ -213,13 +254,31 @@ Bolas4 = this.physics.add.group({
     this.physics.add.overlap(player, Bolas4, function(player, Bolas4) {
         collectBolas(player, Bolas4);
     }, null, this);
+    
+    this.physics.add.overlap(player, Bolas5, function(player, Bolas5) {
+        collectBolas(player, Bolas5);
+    }, null, this);
+    
+    this.physics.add.overlap(player, Bolas6, function(player, Bolas6) {
+        collectBolas(player, Bolas6);
+    }, null, this);
+    
+    this.physics.add.overlap(player, Bolas7, function(player, Bolas7) {
+        collectBolas(player, Bolas7);
+    }, null, this);
+    
+    this.physics.add.overlap(player, Bolas8, function(player, Bolas8) {
+        collectBolas(player, Bolas8);
+    }, null, this);
+    
+    this.physics.add.overlap(player, Bolas9, function(player, Bolas9) {
+        collectBolas(player, Bolas9);
+    }, null, this);
 
     this.physics.add.collider(player, bombs, hitBomb, null, this);
     this.physics.add.collider(player, pinchos, hitBomb, null, this);
     this.physics.add.collider(player, pincho, hitBomb, null, this);
     this.physics.add.collider(player, pincho4, hitBomb, null, this);
-    
-
     
     function collectBolas(player, bolas) {
         bolas.disableBody(true, true);
@@ -237,17 +296,22 @@ Bolas4 = this.physics.add.group({
             bolas.countActive(true) === 0 &&
             Bolas2.countActive(true) === 0 &&
             Bolas3.countActive(true) === 0 &&
-            Bolas4.countActive(true) === 0  
+            Bolas4.countActive(true) === 0 &&
+            Bolas5.countActive(true) === 0 && 
+            Bolas6.countActive(true) === 0 && 
+            Bolas7.countActive(true) === 0 &&
+            Bolas8.countActive(true) === 0 &&
+            Bolas9.countActive(true) === 0 
             ) {
             // A new batch of bolas to collect
             bolas.children.iterate(function (child) {
                 child.enableBody(true, child.x, 0, true, true);
             });
-
+    
             Bolas2.children.iterate(function (child) {
                 child.enableBody(true, child.x, 0, true, true);
             });
-
+    
             Bolas3.children.iterate(function (child) {
                 child.enableBody(true, child.x, 0, true, true);
             });
@@ -255,7 +319,26 @@ Bolas4 = this.physics.add.group({
             Bolas4.children.iterate(function (child) {
                 child.enableBody(true, child.x, 0, true, true);
             });
-
+            
+            Bolas5.children.iterate(function (child) {
+                child.enableBody(true, child.x, 0, true, true);
+            });
+            
+            Bolas6.children.iterate(function (child) {
+                child.enableBody(true, child.x, 0, true, true);
+            });
+            
+            Bolas7.children.iterate(function (child) {
+                child.enableBody(true, child.x, 0, true, true);
+            });
+            
+            Bolas8.children.iterate(function (child) {
+                child.enableBody(true, child.x, 0, true, true);
+            });
+            
+            Bolas9.children.iterate(function (child) {
+                child.enableBody(true, child.x, 0, true, true);
+            });
             
             var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
 
@@ -325,6 +408,8 @@ function hitBomb(player, entity) {
                 margin: "5px",
             })
             .setScrollFactor(0);
+            
+            
     }
 }
 
