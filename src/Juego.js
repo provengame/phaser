@@ -17,14 +17,15 @@ var config = {
 };
 
 var player;
-var stars;
-var duplicatedStar
+var bolas;
 var bombs;
 var platforms;
 var cursors;
 var score = 0;
 var gameOver = false;
 var scoreText;
+var canJump = true;
+
 
 
 var game = new Phaser.Game(config);
@@ -41,6 +42,7 @@ function preload ()
     this.load.image('bomb', 'assets/bomb.png');
     this.load.image('pinchos', 'assets/pinchos.png');
     this.load.image('pincho', 'assets/pincho.png');
+    this.load.image('pincho4', 'assets/pincho4.png');
     
     this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
 }
@@ -66,15 +68,21 @@ function create ()
 
 
     platforms.create(950, 500, 'flotante').setScale().refreshBody();
+    platforms.create(1600, 300, 'flotante').setScale().refreshBody();
+    platforms.create(3000, 260, 'flotante').setScale().refreshBody();
 
     platforms.create(1500, 700, 'flotante2').setScale().refreshBody();
     platforms.create(450, 700, 'flotante2').setScale().refreshBody();
     platforms.create(950, 200, 'flotante2').setScale().refreshBody();
+    platforms.create(2400, 350, 'flotante2').setScale().refreshBody();
+    platforms.create(3250, 690, 'flotante2').setScale().refreshBody();
+    platforms.create(3450, 480, 'flotante2').setScale().refreshBody();
+    platforms.create(2400, 700, 'flotante2').setScale().refreshBody();
     
 
     platforms.create(400, 300, 'suelo3').setScale().refreshBody();
-    platforms.create(2000, 550, 'suelo3').setScale().refreshBody();
-    platforms.create(1600, 300, 'flotante').setScale().refreshBody();
+    platforms.create(2000, 500, 'suelo3').setScale().refreshBody();
+    platforms.create(2800, 575, 'suelo3').setScale().refreshBody();
     
     
     var pinchos = this.physics.add.staticGroup();
@@ -82,6 +90,13 @@ function create ()
 
     var pincho = this.physics.add.staticGroup();
     pinchos.create(2783, 987, 'pincho').setScale().refreshBody();
+    pinchos.create(1950, 860, 'pincho').setScale().refreshBody();
+    
+    var pincho4 = this.physics.add.staticGroup();
+    pinchos.create(400, 250, 'pincho4').setScale().refreshBody();
+    pinchos.create(3000, 210, 'pincho4').setScale().refreshBody();
+    pinchos.create(3620, 860, 'pincho4').setScale().refreshBody();
+    pinchos.create(1600, 250, 'pincho4').setScale().refreshBody();
     
     //  Now let's create some ledges
     
@@ -117,32 +132,42 @@ function create ()
     cursors = this.input.keyboard.createCursorKeys();
 
 // Crear el grupo de estrellas original
-stars = this.physics.add.group({
+bolas = this.physics.add.group({
     key: 'ball-tlb',
-    repeat: 2,
-    setXY: { x: 500, y: 350, stepX: 110 }
+    repeat: 1,
+    setXY: { x: 270, y: 150, stepX: 255 }
 });
 
 // Crear el grupo de estrellas duplicadas
-duplicatedStars = this.physics.add.group({
+
+Bolas2 = this.physics.add.group({
     key: 'ball-tlb',
-    repeat: 2,
-    setXY: { x: 1200, y: 350, stepX: 110 }
+    repeat: 1,
+    setXY: { x: 880, y: 150, stepX: 130 }
     
 });
 
-triplicatedStars = this.physics.add.group({
+Bolas3 = this.physics.add.group({
     key: 'ball-tlb',
-    repeat: 2,
-    setXY: { x: 2000, y: 350, stepX: 110 }
+    repeat: 3,
+    setXY: { x: 750, y: 350, stepX: 130 }
+    
+});
+
+Bolas4 = this.physics.add.group({
+    key: 'ball-tlb',
+    repeat: 4,
+    setXY: { x: 200, y: 850, stepX: 130 }
     
 });
 
 
-    stars.children.iterate(function (child) {
 
-        //  Give each star a slightly different bounce
-        child.setBounceY(Phaser.Math.FloatBetween(0.1, 0.2));
+
+    bolas.children.iterate(function (child) {
+
+        //  Give each bola a slightly different bounce
+        child.setBounceY(Phaser.Math.FloatBetween(0.0, 0.1));
 
     });
 
@@ -150,7 +175,7 @@ triplicatedStars = this.physics.add.group({
 
     //  The score
     scoreText = this.add.text(16, 16, 'score: 0', { 
-        fontSize: '32px', 
+        fontSize: '50px', 
         fill: "rgb(41, 198, 238)",
         stroke: "black",
         strokeThickness: 6,
@@ -158,61 +183,82 @@ triplicatedStars = this.physics.add.group({
     });
     scoreText.setScrollFactor(0);
 
-    //  Collide the player and the stars with the platforms
+    //  Collide the player and the bola with the platforms
     this.physics.add.collider(player, platforms);
-    this.physics.add.collider(stars, platforms);
     this.physics.add.collider(bombs, platforms);
-    this.physics.add.collider(duplicatedStars, platforms);
-    this.physics.add.collider(triplicatedStars, platforms);
-    this.physics.add.collider(stars, duplicatedStars);
-    this.physics.add.collider(stars, triplicatedStars);
-    
+    this.physics.add.collider(bolas, platforms);
+    this.physics.add.collider(Bolas2, platforms);
+    this.physics.add.collider(Bolas3, platforms);
+    this.physics.add.collider(Bolas4, platforms);
+    this.physics.add.collider(bolas, bolas);
+    this.physics.add.collider(bolas, Bolas2);
+    this.physics.add.collider(bolas, Bolas3);
+    this.physics.add.collider(bolas, Bolas4);
 
-    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-    this.physics.add.overlap(player, stars, function(player, star) {
-        collectStar(player, star);
+    //  Checks to see if the player overlaps with any of the bolas, if he does call the collectStar function
+    this.physics.add.overlap(player, bolas, function(player, bolas) {
+        collectBolas(player, bolas);
     }, null, this);
 
-    // Llamada a la función collectStar para las estrellas duplicadas
-    this.physics.add.overlap(player, duplicatedStars, function(player, duplicatedStar) {
-        collectStar(player, duplicatedStar);
+    // Llamada a la función collectbolas para las estrellas duplicadas
+    this.physics.add.overlap(player, Bolas2, function(player, Bolas2) {
+        collectBolas(player, Bolas2);
     }, null, this);
 
-    // Llamada a la función collectStar para las estrellas triplicadas
-    this.physics.add.overlap(player, triplicatedStars, function(player, triplicatedStar) {
-        collectStar(player, triplicatedStar);
+    // Llamada a la función collectbolas para las bolas triplicadas
+    this.physics.add.overlap(player, Bolas3, function(player, Bolas3) {
+        collectBolas(player, Bolas3);
+    }, null, this);
+
+    this.physics.add.overlap(player, Bolas4, function(player, Bolas4) {
+        collectBolas(player, Bolas4);
     }, null, this);
 
     this.physics.add.collider(player, bombs, hitBomb, null, this);
     this.physics.add.collider(player, pinchos, hitBomb, null, this);
-
     this.physics.add.collider(player, pincho, hitBomb, null, this);
+    this.physics.add.collider(player, pincho4, hitBomb, null, this);
     
 
-    // 
-    function collectStar(player, star) {
-        star.disableBody(true, true);
+    
+    function collectBolas(player, bolas) {
+        bolas.disableBody(true, true);
     
         //  Add and update the score
         score += 10;
         scoreText.setText('Score: ' + score);
     
-        if (stars.countActive(true) === 0 || duplicatedStars.countActive(true) === 0 || triplicatedStars.countActive(true) === 0) {
-            //  A new batch of stars to collect
-            stars.children.iterate(function (child) {
+        checkAllGroupsEmpty();
+    }
+    
+    // Con esta funcion se logra que no se reinicien las bolas solo al recoger el grupo bolas y si se reinicen al coger todos los grupos//
+    function checkAllGroupsEmpty() {
+        if (
+            bolas.countActive(true) === 0 &&
+            Bolas2.countActive(true) === 0 &&
+            Bolas3.countActive(true) === 0 &&
+            Bolas4.countActive(true) === 0  
+            ) {
+            // A new batch of bolas to collect
+            bolas.children.iterate(function (child) {
                 child.enableBody(true, child.x, 0, true, true);
             });
-    
-            duplicatedStars.children.iterate(function (child) {
+
+            Bolas2.children.iterate(function (child) {
                 child.enableBody(true, child.x, 0, true, true);
             });
-    
-            triplicatedStars.children.iterate(function (child) {
+
+            Bolas3.children.iterate(function (child) {
                 child.enableBody(true, child.x, 0, true, true);
             });
-    
+            
+            Bolas4.children.iterate(function (child) {
+                child.enableBody(true, child.x, 0, true, true);
+            });
+
+            
             var x = (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
-    
+
             var bomb = bombs.create(x, 16, 'bomb');
             bomb.setBounce(1);
             bomb.setCollideWorldBounds(true);
@@ -220,8 +266,7 @@ triplicatedStars = this.physics.add.group({
             bomb.allowGravity = false;
         }
     }
-    
-}
+}  
 
 
 function update ()
@@ -231,9 +276,8 @@ function update ()
         return;
     }
 
-    if (cursors.up.isDown)
-    {
-        player.setVelocityY(-375);
+    if (cursors.up.isDown && player.body.touching.down && canJump) {
+        player.setVelocityY(-370);
         player.anims.play('up', false)
     }
 
@@ -261,18 +305,11 @@ function update ()
         player.anims.play('turn');
     }
 
-    
-
     this.cameras.main.scrollX = player.x - 400;
 }
 
-
-
-
-
-
 function hitBomb(player, entity) {
-    if (entity.texture.key === 'bomb' || entity.texture.key === 'pinchos' || entity.texture.key === 'pincho' ) {
+    if (entity.texture.key === 'bomb' || entity.texture.key === 'pinchos' || entity.texture.key === 'pincho' || entity.texture.key === 'pincho4') {
         this.physics.pause();
         player.setTint(0xff0000);
         player.anims.play("turn");

@@ -188,12 +188,11 @@ notas.addEventListener("click", (e) => {
   frame.show();
 });
 
-
 excel.addEventListener("click", (e) => {
   const jsFrame = new JSFrame();
   const frame = jsFrame.create({
     title: 'Hoja de calculo',
-    left: 300, top: 70, width: 500, height: 400,
+    left: 500, top: 70, width: 700, height: 500,
     movable: true, // Enable to be moved by mouse
     resizable: true, // Enable to be resized by mouse
     appearanceName: 'redstone',
@@ -238,11 +237,19 @@ excel.addEventListener("click", (e) => {
             });
         },
     });
-});
+  });
+    // Show the window
+    frame.show();
 
-  // Show the window
-  frame.show();
-});
+})
+
+
+
+
+
+
+
+  
 
 
 
