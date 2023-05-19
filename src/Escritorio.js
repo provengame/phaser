@@ -158,33 +158,37 @@ arcade.addEventListener("click", (e) => {
   frame.show();
 });
 
+var notasOpen = false;
+
 notas.addEventListener("click", (e) => {
+
+  if (notasOpen) {
+    return
+  };
+
+  notasOpen = true;
+
   const jsFrame = new JSFrame();
   const frame = jsFrame.create({
     title: 'Bloc de notas',
-    left: 300, top: 70, width: 500, height: 180,
+    left: 300, top: 70, width: 1050, height: 600,
     movable: true, // Enable to be moved by mouse
     resizable: true, // Enable to be resized by mouse
     appearanceName: 'redstone',
     style: {
-        backgroundColor: 'rgba(220,220,220,0.8)',
+      backgroundColor: 'rgba(220,220,220,0.8)',
     },
     url: 'quill.html',
-    onClose: function(_frame, evt) {
-      _frame.close();
-    },
-    
+
   });
 
   frame.setControl({
     maximizeButton: 'maximizeButton',
-    minimizeButton: 'minimizeButton',
     demaximizeButton: 'restoreButton',
     maximizeWithoutTitleBar: true,
     restoreKey: 'Escape',
     minimizeButton: 'minimizeButton',
     deminimizeButton: 'deminimizeButton',
-    hideButton: 'closeButton',
     animation: true,
     animationDuration: 90,
   });
@@ -194,52 +198,77 @@ notas.addEventListener("click", (e) => {
   frame.on('maximizeButton', 'click', (_frame, evt) => {
 
     _frame.control.doMaximize({
-        hideTitleBar: false,
-        duration: 100,
-        restoreKey: 'Escape',
-        restoreDuration: 100,
-        callback: (frame, info) => {
-            frame.requestFocus();
-        },
-        restoreCallback: (frame, info) => {
-            jsFrame.showToast({
-                text: frame.getName() + ' ' + info.eventType
-            });
-        },
+      hideTitleBar: false,
+      duration: 100,
+      restoreKey: 'Escape',
+      restoreDuration: 100,
+      callback: (frame, info) => {
+        frame.requestFocus();
+      },
+      restoreCallback: (frame, info) => {
+        jsFrame.showToast({
+          text: frame.getName() + ' ' + info.eventType
+        });
+      },
     });
-});
+  });
+
+
+  frame.on('closeButton', 'click', (_frame, evt) => {
+
+    _frame.control.doHide({
+      duration: 140,
+      //非表示にするときのアニメーションの終点
+      align: 'CENTER_BOTTOM',
+      //非表示処理が終了したときのコールバックを受け取る関数
+      callback: (frame, info) => {
+          jsFrame.showToast({
+              text: frame.getName() + ' ' + info.eventType
+          });
+
+          //非表示にした後、ウィンドウを閉じる（削除する）
+          _frame.closeFrame();
+      }
+  });
+    notasOpen = false;
+  });
+
 
   // Show the window
   frame.show();
 });
 
+var excelOpen = false;
+
 excel.addEventListener("click", (e) => {
+
+  if (excelOpen) {
+    return
+  };
+
+  excelOpen = true;
+
   const jsFrame = new JSFrame();
   const frame = jsFrame.create({
     title: 'Hoja de calculo',
-    left: 500, top: 70, width: 700, height: 500,
+    left: 300, top: 70, width: 1050, height: 600,
     movable: true, // Enable to be moved by mouse
     resizable: true, // Enable to be resized by mouse
     appearanceName: 'redstone',
     style: {
-        backgroundColor: 'rgba(220,220,220,0.8)',
+      backgroundColor: 'rgba(220,220,220,0.8)',
     },
     url: 'excel.html',
-    onClose: function(_frame, evt) {
-      _frame.close();
-    },
-    
+
   });
 
   frame.setControl({
     maximizeButton: 'maximizeButton',
-    minimizeButton: 'minimizeButton',
     demaximizeButton: 'restoreButton',
     maximizeWithoutTitleBar: true,
     restoreKey: 'Escape',
     minimizeButton: 'minimizeButton',
     deminimizeButton: 'deminimizeButton',
-    hideButton: 'closeButton',
     animation: true,
     animationDuration: 90,
   });
@@ -249,24 +278,43 @@ excel.addEventListener("click", (e) => {
   frame.on('maximizeButton', 'click', (_frame, evt) => {
 
     _frame.control.doMaximize({
-        hideTitleBar: false,
-        duration: 100,
-        restoreKey: 'Escape',
-        restoreDuration: 100,
-        callback: (frame, info) => {
-            frame.requestFocus();
-        },
-        restoreCallback: (frame, info) => {
-            jsFrame.showToast({
-                text: frame.getName() + ' ' + info.eventType
-            });
-        },
+      hideTitleBar: false,
+      duration: 100,
+      restoreKey: 'Escape',
+      restoreDuration: 100,
+      callback: (frame, info) => {
+        frame.requestFocus();
+      },
+      restoreCallback: (frame, info) => {
+        jsFrame.showToast({
+          text: frame.getName() + ' ' + info.eventType
+        });
+      },
     });
   });
-    // Show the window
-    frame.show();
 
-})
+
+  frame.on('closeButton', 'click', (_frame, evt) => {
+
+    _frame.control.doHide({
+      duration: 140,
+      //非表示にするときのアニメーションの終点
+      align: 'CENTER_BOTTOM',
+      //非表示処理が終了したときのコールバックを受け取る関数
+      callback: (frame, info) => {
+          jsFrame.showToast({
+              text: frame.getName() + ' ' + info.eventType
+          });
+
+          //非表示にした後、ウィンドウを閉じる（削除する）
+          _frame.closeFrame();
+      }
+  });
+    excelOpen = false;
+  });
+  // Show the window
+  frame.show();
+});
 
 
 

@@ -49,6 +49,8 @@ function preload ()
 
 function create ()
 {
+
+    
     //  A simple background for our game
     this.add.image(2650, 450, 'ciudad');
     
@@ -196,6 +198,19 @@ Bolas9 = this.physics.add.group({
     
 });
 
+Bolas10 = this.physics.add.group({
+    key: 'ball-tlb',
+    repeat: 1,
+    setXY: { x: 2825, y: 150, stepX: 350 }
+    
+});
+
+Bolas11 = this.physics.add.group({
+    key: 'ball-tlb',
+    repeat: 4,
+    setXY: { x: 2980, y: 850, stepX: 130 }
+    
+});
 
 bolas.children.iterate(function (child) {
     //  Give each bola a slightly different bounce
@@ -226,6 +241,8 @@ bolas.children.iterate(function (child) {
     this.physics.add.collider(Bolas7, platforms);
     this.physics.add.collider(Bolas8, platforms);
     this.physics.add.collider(Bolas9, platforms);
+    this.physics.add.collider(Bolas10, platforms);
+    this.physics.add.collider(Bolas11, platforms);
     this.physics.add.collider(bolas, bolas);
     this.physics.add.collider(bolas, Bolas2);
     this.physics.add.collider(bolas, Bolas3);
@@ -235,6 +252,8 @@ bolas.children.iterate(function (child) {
     this.physics.add.collider(bolas, Bolas7);
     this.physics.add.collider(bolas, Bolas8);
     this.physics.add.collider(bolas, Bolas9);
+    this.physics.add.collider(bolas, Bolas10);
+    this.physics.add.collider(bolas, Bolas11);
 
     //  Checks to see if the player overlaps with any of the bolas, if he does call the collectStar function
     this.physics.add.overlap(player, bolas, function(player, bolas) {
@@ -274,6 +293,14 @@ bolas.children.iterate(function (child) {
     this.physics.add.overlap(player, Bolas9, function(player, Bolas9) {
         collectBolas(player, Bolas9);
     }, null, this);
+    
+    this.physics.add.overlap(player, Bolas10, function(player, Bolas10) {
+        collectBolas(player, Bolas10);
+    }, null, this);
+    
+    this.physics.add.overlap(player, Bolas11, function(player, Bolas11) {
+        collectBolas(player, Bolas11);
+    }, null, this);
 
     this.physics.add.collider(player, bombs, hitBomb, null, this);
     this.physics.add.collider(player, pinchos, hitBomb, null, this);
@@ -301,7 +328,9 @@ bolas.children.iterate(function (child) {
             Bolas6.countActive(true) === 0 && 
             Bolas7.countActive(true) === 0 &&
             Bolas8.countActive(true) === 0 &&
-            Bolas9.countActive(true) === 0 
+            Bolas9.countActive(true) === 0 &&
+            Bolas10.countActive(true) === 0 &&
+            Bolas11.countActive(true) === 0 
             ) {
             // A new batch of bolas to collect
             bolas.children.iterate(function (child) {
@@ -337,6 +366,14 @@ bolas.children.iterate(function (child) {
             });
             
             Bolas9.children.iterate(function (child) {
+                child.enableBody(true, child.x, 0, true, true);
+            });
+            
+            Bola10.children.iterate(function (child) {
+                child.enableBody(true, child.x, 0, true, true);
+            });
+            
+            Bola11.children.iterate(function (child) {
                 child.enableBody(true, child.x, 0, true, true);
             });
             
@@ -398,16 +435,24 @@ function hitBomb(player, entity) {
         player.anims.play("turn");
         gameOver = true;
 
-        this.add
-            .text(200, 250, "Game Over", {
-                fontSize: "230px",
-                fill: "rgb(41, 198, 238)",
-                stroke: "black",
-                strokeThickness: 7,
-                fontWeight: 9000,
-                margin: "5px",
-            })
-            .setScrollFactor(0);
+
+
+
+        var gameOverText = this.add.text(config.width / 4.5, config.height / 2, 'Game Over', {
+            fontSize: '72px',
+            fill: '#fff',
+            fontSize: "250px",
+            fill: "rgb(41, 198, 238)",
+            stroke: "black",
+            strokeThickness: 7,
+            
+            
+        });
+        
+        gameOverText.setOrigin(0.5);
+        gameOverText.setPosition(config.width / 1.4 - gameOverText.width / 0.8, config.height / 1.3 - gameOverText.height / 0.5);
+        gameOverText.setScrollFactor(0);
+        
             
             
     }
