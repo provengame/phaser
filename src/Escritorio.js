@@ -138,15 +138,11 @@ arcade.addEventListener("click", (e) => {
 
     _frame.control.doHide({
       duration: 140,
-      //非表示にするときのアニメーションの終点
       align: 'CENTER_BOTTOM',
-      //非表示処理が終了したときのコールバックを受け取る関数
       callback: (frame, info) => {
           jsFrame.showToast({
               text: frame.getName() + ' ' + info.eventType
           });
-
-          //非表示にした後、ウィンドウを閉じる（削除する）
           _frame.closeFrame();
       }
   });
@@ -218,15 +214,14 @@ notas.addEventListener("click", (e) => {
 
     _frame.control.doHide({
       duration: 140,
-      //非表示にするときのアニメーションの終点
+      
       align: 'CENTER_BOTTOM',
-      //非表示処理が終了したときのコールバックを受け取る関数
+      
       callback: (frame, info) => {
           jsFrame.showToast({
               text: frame.getName() + ' ' + info.eventType
           });
-
-          //非表示にした後、ウィンドウを閉じる（削除する）
+          
           _frame.closeFrame();
       }
   });
@@ -298,15 +293,12 @@ excel.addEventListener("click", (e) => {
 
     _frame.control.doHide({
       duration: 140,
-      //非表示にするときのアニメーションの終点
       align: 'CENTER_BOTTOM',
-      //非表示処理が終了したときのコールバックを受け取る関数
       callback: (frame, info) => {
           jsFrame.showToast({
               text: frame.getName() + ' ' + info.eventType
           });
 
-          //非表示にした後、ウィンドウを閉じる（削除する）
           _frame.closeFrame();
       }
   });
@@ -315,15 +307,4 @@ excel.addEventListener("click", (e) => {
   // Show the window
   frame.show();
 });
-
-
-
-
-
-
-
-  
-
-
-
 
