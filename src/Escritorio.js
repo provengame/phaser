@@ -1,11 +1,10 @@
 // Hora con JavaScript
-
 function mostrarHora() {
-    var fecha = new Date(); // Obtenemos la fecha y hora actual
+    var fecha = new Date(); 
     var hora = fecha.getHours();
     var minutos = fecha.getMinutes();
     var segundos = fecha.getSeconds();
-    // Formateamos la hora para mostrarla en dos dígitos
+    
     if (hora < 10) {
     hora = "0" + hora;
     }
@@ -15,28 +14,19 @@ function mostrarHora() {
     if (segundos < 10) {
     segundos = "0" + segundos;
     }
-    // Mostramos la hora en la página
     document.getElementById("reloj").innerHTML = hora + ":" + minutos ;
 }
-  // Actualizamos el reloj cada segundo
 setInterval(mostrarHora, 1000);
 
-
 // Calendario con JavaScript
-
 function showCalendar() {
   const element = document.getElementById(".month");
 
-  // Obtener el mes actual del elemento HTML
   const month = element.textContent.trim();
 
-  // Capitalizar la primera letra del mes
   const capitalizedMonth = month.charAt(0).toUpperCase() + month.slice(1);
 
-  // Asignar el mes capitalizado al elemento HTML
   element.textContent = capitalizedMonth;
-
-  // Resto del código para crear el calendario...
 }
 
 const today = new Date();
@@ -48,7 +38,6 @@ const daysInMonth = new Date(year, today.getMonth() + 1, 0).getDate();
 document.querySelector('.month').innerHTML = month;
 document.querySelector('.year').innerHTML = year;
 
-// Ajustar el día de la semana para que el lunes sea el primer día
 let dayOfWeek = firstDayOfMonth.getDay();
 dayOfWeek = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
 
@@ -57,13 +46,18 @@ let dayOfMonth = 1;
 for (let i = 0; i < 6; i++) {
   for (let j = 0; j < 7; j++) {
     const day = document.createElement('div');
+    
     if (i === 0 && j < dayOfWeek) {
       day.innerHTML = '';
       day.classList.add('disabled');
-    } else if (dayOfMonth > daysInMonth) {
+    } 
+    
+    else if (dayOfMonth > daysInMonth) {
       day.innerHTML = '';
       day.classList.add('disabled');
-    } else {
+    } 
+    
+    else {
       day.innerHTML = dayOfMonth;
       if (dayOfMonth === today.getDate() && today.getMonth() === firstDayOfMonth.getMonth()) {
         day.classList.add('today');
@@ -76,12 +70,10 @@ for (let i = 0; i < 6; i++) {
 
 showCalendar();
 
-// Ventanas
-
+// Ventana arcade
 var arcadeOpen = false;
 
 arcade.addEventListener("click", (e) => {
-
   if (arcadeOpen) {
     return
   };
@@ -92,14 +84,13 @@ arcade.addEventListener("click", (e) => {
   const frame = jsFrame.create({
     title: 'Juego Arcade',
     left: 300, top: 70, width: 1050, height: 600,
-    movable: true, // Enable to be moved by mouse
-    resizable: true, // Enable to be resized by mouse
+    movable: true, 
+    resizable: true, 
     appearanceName: 'redstone',
     style: {
       backgroundColor: 'rgba(220,220,220,0.8)',
     },
     url: 'Juego.html',
-
   });
 
   frame.setControl({
@@ -113,10 +104,8 @@ arcade.addEventListener("click", (e) => {
     animationDuration: 90,
   });
 
-
-  // hace que se maximice al clickar en el boton
+  
   frame.on('maximizeButton', 'click', (_frame, evt) => {
-
     _frame.control.doMaximize({
       hideTitleBar: false,
       duration: 100,
@@ -125,17 +114,17 @@ arcade.addEventListener("click", (e) => {
       callback: (frame, info) => {
         frame.requestFocus();
       },
+
       restoreCallback: (frame, info) => {
         jsFrame.showToast({
           text: frame.getName() + ' ' + info.eventType
         });
       },
+
     });
   });
 
-
   frame.on('closeButton', 'click', (_frame, evt) => {
-
     _frame.control.doHide({
       duration: 140,
       align: 'CENTER_BOTTOM',
@@ -148,12 +137,12 @@ arcade.addEventListener("click", (e) => {
   });
     arcadeOpen = false;
   });
-
-
-  // Show the window
+  
   frame.show();
 });
 
+
+//Ventana bloc de notas
 var notasOpen = false;
 
 notas.addEventListener("click", (e) => {
@@ -168,14 +157,13 @@ notas.addEventListener("click", (e) => {
   const frame = jsFrame.create({
     title: 'Bloc de notas',
     left: 300, top: 70, width: 1050, height: 600,
-    movable: true, // Enable to be moved by mouse
-    resizable: true, // Enable to be resized by mouse
+    movable: true,
+    resizable: true,
     appearanceName: 'redstone',
     style: {
       backgroundColor: 'rgba(220,220,220,0.8)',
     },
-    url: 'quill.html',
-
+    url: 'word.html',
   });
 
   frame.setControl({
@@ -189,10 +177,7 @@ notas.addEventListener("click", (e) => {
     animationDuration: 90,
   });
 
-
-  // hace que se maximice al clickar en el boton
   frame.on('maximizeButton', 'click', (_frame, evt) => {
-
     _frame.control.doMaximize({
       hideTitleBar: false,
       duration: 100,
@@ -201,20 +186,19 @@ notas.addEventListener("click", (e) => {
       callback: (frame, info) => {
         frame.requestFocus();
       },
+
       restoreCallback: (frame, info) => {
         jsFrame.showToast({
           text: frame.getName() + ' ' + info.eventType
         });
       },
+
     });
   });
 
-
   frame.on('closeButton', 'click', (_frame, evt) => {
-
     _frame.control.doHide({
       duration: 140,
-      
       align: 'CENTER_BOTTOM',
       
       callback: (frame, info) => {
@@ -228,15 +212,13 @@ notas.addEventListener("click", (e) => {
     notasOpen = false;
   });
 
-
-  // Show the window
   frame.show();
 });
 
+//ventana excel
 var excelOpen = false;
 
 excel.addEventListener("click", (e) => {
-
   if (excelOpen) {
     return
   };
@@ -247,14 +229,13 @@ excel.addEventListener("click", (e) => {
   const frame = jsFrame.create({
     title: 'Hoja de calculo',
     left: 300, top: 70, width: 1050, height: 600,
-    movable: true, // Enable to be moved by mouse
-    resizable: true, // Enable to be resized by mouse
+    movable: true, 
+    resizable: true, 
     appearanceName: 'redstone',
     style: {
       backgroundColor: 'rgba(220,220,220,0.8)',
     },
     url: 'excel.html',
-
   });
 
   frame.setControl({
@@ -268,10 +249,7 @@ excel.addEventListener("click", (e) => {
     animationDuration: 90,
   });
 
-
-  // hace que se maximice al clickar en el boton
   frame.on('maximizeButton', 'click', (_frame, evt) => {
-
     _frame.control.doMaximize({
       hideTitleBar: false,
       duration: 100,
@@ -280,17 +258,17 @@ excel.addEventListener("click", (e) => {
       callback: (frame, info) => {
         frame.requestFocus();
       },
+
       restoreCallback: (frame, info) => {
         jsFrame.showToast({
           text: frame.getName() + ' ' + info.eventType
         });
       },
+
     });
   });
 
-
   frame.on('closeButton', 'click', (_frame, evt) => {
-
     _frame.control.doHide({
       duration: 140,
       align: 'CENTER_BOTTOM',
@@ -298,13 +276,11 @@ excel.addEventListener("click", (e) => {
           jsFrame.showToast({
               text: frame.getName() + ' ' + info.eventType
           });
-
           _frame.closeFrame();
       }
   });
     excelOpen = false;
   });
-  // Show the window
+  
   frame.show();
 });
-

@@ -6,23 +6,16 @@ body{
     margin: 30px;
 }
 
-.game-over {
-    font-size: 48px;
-    color: #fff;
-    background-color: #000;
-    padding: 20px;
+#papelera {
+    padding: 15px;
+    background-color: transparent;
+    transition: all 0.2s ease-in-out;
 }
 
 #papelera-bg {
     padding: 18px;
     padding-bottom: 0px;
     width: 180px;
-}
-
-#papelera {
-    padding: 15px;
-    background-color: transparent;
-    transition: all 0.2s ease-in-out;
 }
 
 #papelera:hover {
@@ -32,35 +25,16 @@ body{
     cursor: pointer;
 }
 
-#notas-bg {
-    padding: 18px;
-    padding-bottom: 0px;
-    width: 180px;
-}
-
-#notas {
-    padding: 15px;
-    background-color: transparent;
-    transition: all 0.2s ease-in-out;
-}
-
-#notas:hover {
-    background-color: rgba(161, 161, 161, 0.438);
-    padding: 15px;
-    border: 1px solid #aaa;
-    cursor: pointer;
-}
-
-#arcade-bg {
-    padding: 18px;
-    width: 180px;
-}
-
 #arcade {
     padding: 15px;
     background-color: transparent;
     transition: all 0.2s ease-in-out;
     padding-bottom: 24px;
+}
+
+#arcade-bg {
+    padding: 18px;
+    width: 180px;
 }
 
 #arcade:hover {
@@ -70,6 +44,26 @@ body{
     padding-bottom: 24px;
     cursor: pointer;
 }
+
+#notas {
+    padding: 15px;
+    background-color: transparent;
+    transition: all 0.2s ease-in-out;
+}
+
+#notas-bg {
+    padding: 18px;
+    padding-bottom: 0px;
+    width: 180px;
+}
+
+#notas:hover {
+    background-color: rgba(161, 161, 161, 0.438);
+    padding: 15px;
+    border: 1px solid #aaa;
+    cursor: pointer;
+}
+
 #excel-bg {
     padding: 18px;
     width: 180px;
@@ -91,77 +85,112 @@ body{
 }
 
 @media screen and (max-width: 1370px) {
-    #papelera{
+    .papelera{
         width: 120px;
     }
-    #arcade{
+    .arcade{
+        width: 120px;
+    }
+    .notas{
+        width: 120px;
+    }
+    .excel{
         width: 120px;
     }
 }
 
 @media screen and (max-width: 1220px) {
-    #papelera{
+    .papelera{
         width: 110px;
     }
-    #arcade{
+    .arcade{
+        width: 110px;
+    }
+    .notas{
+        width: 110px;
+    }
+    .excel{
         width: 110px;
     }
 }
 
 @media screen and (max-width: 1020px) {
-    #papelera{
+    .papelera{
         width: 100px;
     }
-    #arcade{
+    .arcade{
+        width: 100px;
+    }
+    .notas{
+        width: 100px;
+    }
+    .excel{
         width: 100px;
     }
 }
 
 @media screen and (max-width: 820px) {
-    #papelera{
+    .papelera{
         width: 90px;
     }
-    #arcade{
+    .arcade{
+        width: 90px;
+    }
+    .notas{
+        width: 90px;
+    }
+    .excel{
         width: 90px;
     }
 }
 
 @media screen and (max-width: 620px) {
-    #papelera{
+    .papelera{
         width: 80px;
     }
-    #arcade{
+    .arcade{
+        width: 80px;
+    }
+    .notas{
+        width: 80px;
+    }
+    .excel{
         width: 80px;
     }
 }
 @media screen and (max-width: 420px) {
-    #papelera{
+    .papelera{
         width: 70px;
     }
-    #arcade{
+    .arcade{
+        width: 70px;
+    }
+    .notas{
+        width: 70px;
+    }
+    .excel{
         width: 70px;
     }
 }
 
 /* BARRA DE NAVEGACIÓN */
-
-#barra{
+.barra{
     background-color: black;
 }
 .navbar {
     --bs-navbar-padding-y: 0;
 }
 
-#icon {
+.icon {
     cursor: pointer;
 }
 
 /* MENÚ 1 */
-#home{ /* Cambia las letras del menú (Home) */
+.home{ 
     color: white;
 }
 
-#home:hover{ /* Cambia el Hover del menú (Home) */
+.home:hover{
     background-color: #0BC9CD;
     color: black;
     height: 100%;
@@ -169,17 +198,17 @@ body{
 
 
 /* SUBMENÚ 1 */
-#submenu{ /* Cambia el fondo de todo el submenú */
+.submenu{ 
     background-color: black;
     bottom: 55px;
 }
 
-#li{ /* Cambia las letras del submenú (Inicio, Archivos, Conf...) */
+.li{ 
     color: white;
     padding-left: 10px;
 }
 
-#li:hover { /* Cambia el Hover del submenú (Inicio, Archivos, Conf...) */
+.li:hover { 
     background-color: rgb(0, 204, 255);
     color: black;
     transform: scale(1.1);
@@ -188,14 +217,12 @@ body{
 }
 
 
-
 /* MENÚ 2 */
-
-#reloj{ /* Cambia el color de los números de hora */
+#reloj{
     color: white;
 }
 
-#reloj:hover{ /* Cambia el Hover de la hora */
+#reloj:hover{ 
     color: black;
     background-color: #0BC9CD;
     height: 100%;
@@ -203,8 +230,7 @@ body{
 
 
 /* SUBMENÚ 2 */
-
-#submenu-2{ /* Cambia el fondo de todo el sumbenú */
+#submenu-2{
     background-color: black;
     bottom: 55px;
     left: -300px;
@@ -212,13 +238,13 @@ body{
     opacity: 85%;
 }
 
-#li-2{ /* Cambia las letras del submenú (Calendario) */
+.li-2{
     color: white;
     font-size: 25px;
 }
 
 /* SUBMENÚ 3 */
-#submenu-3{ /* Cambia el fondo de todo el sumbenú */
+#submenu-3{
     background-color: black;
     bottom: 55px;
     left: -65px;
@@ -226,30 +252,14 @@ body{
     height: 230px;
 }
 
-#barra-vol{
+.barra-vol{
     display: flex;
     justify-content: center;
     padding: 10px;
 }
 
-/* SUBMENU 4 */
-#submenu-4 {
-    left: 180px;
-    
-}
-
-/*SUBMENÚ TEMAS*/
-#submenu-colores{ /* Cambia el fondo de todo el submenú */
-    position: absolute;
-    background-color: black;
-    margin-left: 180px;
-    bottom: 10px;
-}
-
-
 
 /* CALENDARIO */
-
 #calendar {
     width: 350px;
     font-family: Arial, sans-serif;
@@ -263,7 +273,6 @@ body{
     background-color: black;
     padding: 10px;
     border: 2px solid white;
-
 }
 
 .month {
@@ -306,12 +315,11 @@ body{
 }
 
 
-/* Barra de vol */
+/* BARRA DE VOL*/
 .imagen {
     background-color: transparent;
     border: none;
     }
-    
     
     .range {
         width: 150px;
@@ -320,5 +328,3 @@ body{
         vertical-align: middle;
         bottom: -90px;
     }
-
-

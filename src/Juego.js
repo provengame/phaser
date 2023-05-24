@@ -26,12 +26,11 @@ var gameOver = false;
 var scoreText;
 var canJump = true;
 var initialBallPositions = [];
-
 var game = new Phaser.Game(config);
 
 function preload () {
     this.load.image('ciudad', 'assets/ciudad.png');
-    this.load.image('ground', 'assets/suelo6.png');
+    this.load.image('suelo', 'assets/suelo6.png');
     this.load.image('flotante', 'assets/flotante4.png');
     this.load.image('flotante2', 'assets/suelo2.png');
     this.load.image('suelo3', 'assets/suelo3.png');
@@ -45,18 +44,14 @@ function preload () {
 }
 
 function create () {
-    //  A simple background for our game
     this.add.image(2650, 450, 'ciudad');
     
-    //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = this.physics.add.staticGroup();
 
-    //  Here we create the ground.
-    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    platforms.create(400, 945, 'ground').setScale().refreshBody();
-    platforms.create(1500, 945, 'ground').setScale().refreshBody();
-    platforms.create(2268, 945, 'ground').setScale().refreshBody();
-    platforms.create(3300, 945, 'ground').setScale().refreshBody();
+    platforms.create(400, 945, 'suelo').setScale().refreshBody();
+    platforms.create(1500, 945, 'suelo').setScale().refreshBody();
+    platforms.create(2268, 945, 'suelo').setScale().refreshBody();
+    platforms.create(3300, 945, 'suelo').setScale().refreshBody();
 
     platforms.create(-47, 625, 'pared').setScale().refreshBody();
     platforms.create(3747, 625, 'pared').setScale().refreshBody();
@@ -91,14 +86,22 @@ function create () {
     pinchos.create(3620, 860, 'pincho4').setScale().refreshBody();
     pinchos.create(1600, 250, 'pincho4').setScale().refreshBody();
     
-    // The player and its settings
     player = this.physics.add.sprite(50, 850, 'dude');
 
-    //  Player physics properties. Give the little guy a slight bounce.
-    player.setBounce(0.2);
     player.setCollideWorldBounds(true);
 
-    //  Our player animations, turning, walking left and walking right.
+    bombs = this.physics.add.group();
+
+    scoreText = this.add.text(16, 16, 'score: 0', { 
+        fontSize: '50px', 
+        fill: "rgb(41, 198, 238)",
+        stroke: "black",
+        strokeThickness: 6,
+        fontWeight: 900,
+    });
+
+    scoreText.setScrollFactor(0);
+
     this.anims.create({
         key: 'left',
         frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
@@ -119,16 +122,20 @@ function create () {
         repeat: -1
     });
 
-    //  Input Events
     cursors = this.input.keyboard.createCursorKeys();
 
-    // Crear el grupo de estrellas original
     function createBolasGroup(x, y, repeat, stepX) {
-        return this.physics.add.group({
+        var group = this.physics.add.group({
             key: 'ball-tlb',
             repeat: repeat,
             setXY: { x: x, y: y, stepX: stepX }
         });
+    
+        group.children.iterate(function (child) {
+            initialBallPositions.push({ x: child.x, y: child.y });
+        });
+    
+        return group;
     }
 
     bolas = createBolasGroup.call(this, 270, 150, 1, 255);
@@ -144,24 +151,9 @@ function create () {
     Bolas11 = createBolasGroup.call(this, 2980, 850, 4, 130);
 
     bolas.children.iterate(function (child) {
-        //  Give each bola a slightly different bounce
         child.setBounceY(Phaser.Math.FloatBetween(0.0, 0.1));
     });
 
-    bombs = this.physics.add.group();
-
-    //  The score
-    scoreText = this.add.text(16, 16, 'score: 0', { 
-        fontSize: '50px', 
-        fill: "rgb(41, 198, 238)",
-        stroke: "black",
-        strokeThickness: 6,
-        fontWeight: 900,
-    });
-
-    scoreText.setScrollFactor(0);
-
-    //  Collide the player and the bola with the platforms
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(bombs, platforms);
     this.physics.add.collider(bolas, platforms);
@@ -187,14 +179,12 @@ function create () {
     this.physics.add.collider(bolas, Bolas10);
     this.physics.add.collider(bolas, Bolas11);
 
-    //  Checks to see if the player overlaps with any of the bolas, if he does call the collectStar function
     function addOverlap(player, bolas) {
         this.physics.add.overlap(player, bolas, function(player, bolas) {
             collectBolas(player, bolas);
         }, null, this);
     }
     
-    // Llamadas a la función addOverlap para diferentes conjuntos de bolas
     addOverlap.call(this, player, bolas);
     addOverlap.call(this, player, Bolas2);
     addOverlap.call(this, player, Bolas3);
@@ -214,28 +204,30 @@ function create () {
     
     function collectBolas(player, bolas) {
         bolas.disableBody(true, true);
-        //  Add and update the score
         score += 10;
         scoreText.setText('Score: ' + score);
     
-        checkAllGroupsEmpty();
+        checkGruposVacios();
     }
     
-    function checkAllGroupsEmpty() {
-    var groups = [bolas, Bolas2, Bolas3, Bolas4, Bolas5, Bolas6, Bolas7, Bolas8, Bolas9, Bolas10, Bolas11];
-    var allGroupsEmpty = true;
-
-        for (var i = 0; i < groups.length; i++) {
-            if (groups[i].countActive(true) > 0) {
-                allGroupsEmpty = false;
+    function checkGruposVacios() {
+        var grupos = [bolas, Bolas2, Bolas3, Bolas4, Bolas5, Bolas6, Bolas7, Bolas8, Bolas9, Bolas10, Bolas11];
+        var gruposVacios = true;
+        
+        for (var i = 0; i < grupos.length; i++) {
+            if (grupos[i].countActive(true) > 0) {
+                gruposVacios = false;
                 break;
             }
         }
+    
+        if (gruposVacios) {
 
-        if (allGroupsEmpty) {
-            for (var i = 0; i < groups.length; i++) {
-                groups[i].children.iterate(function (child) {
-                    child.enableBody(true, child.x, 0, true, true);
+            var count = 0;
+            for (var i = 0; i < grupos.length; i++) {
+                grupos[i].children.iterate(function (child, index) {
+                    child.enableBody(true, initialBallPositions[count].x, initialBallPositions[count].y, true, true);
+                    count++
                 });
             }
 
@@ -292,12 +284,10 @@ function hitBomb(player, entity) {
             stroke: "black",
             strokeThickness: 7,
             
-            
         });
         
         gameOverText.setOrigin(0.5);
         gameOverText.setPosition(config.width / 1.4 - gameOverText.width / 0.8, config.height / 1.3 - gameOverText.height / 0.5);
         gameOverText.setScrollFactor(0);
-        
     }
 }

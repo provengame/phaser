@@ -13,25 +13,25 @@
 <body>
     
     <div>
-        <div id="papelera-bg">
+        <div class="papelera-bg">
             <img class="icon" src="fondo/papelera-azul.png" id="papelera">
         </div>
             
-        <div id="arcade-bg">
-            <img  src="fondo/arcade-azul.png" id="arcade">
+        <div class="arcade-bg">
+            <img class="icon" src="fondo/arcade-azul.png" id="arcade">
         </div>
 
-        <div id="notas-bg">
+        <div class="notas-bg">
             <img class="icon" src="fondo/bloc.png" id="notas">
         </div>
 
-        <div id="excel-bg">
+        <div class="excel-bg">
             <img class="icon" src="fondo/excel.png" id="excel">
         </div>
 
     </div>
     
-    <nav class="navbar fixed-bottom navbar-expand-lg" id="barra">
+    <nav class="navbar fixed-bottom navbar-expand-lg barra">
         
         <div class="container-fluid">
         
@@ -41,24 +41,15 @@
 
             <div class="collapse navbar-collapse" id="navbarCollapse">
             
-                <div class="navbar-nav" id="icon">
-                    <div class="nav-item dropdown dropup" id="home">
-                        <a class="nav-link" data-bs-toggle="dropdown" id="home"><img src="Iconos/home-alt-2-regular-24.png"></a>
-                        <div class="dropdown-menu" id="submenu">
-                            <a class="dropdown-item" id="li"><img src="Iconos/usuario.png">  Perfil</a>
-                            <a class="dropdown-item" id="li"><img src="Iconos/cog-regular-24.png">    Configuración</a>
-
-
-                            <button class="dropdown-item"   id="li"><img src="Iconos/paleta-de-color.png">  Temas</button>
-                                <div id="submenu-colores">
-                                    <button class="dropdown-item" id="li">Morado</button>
-                                    <button class="dropdown-item" id="li">Azul</button>
-                                    <button class="dropdown-item" id="li">Verde</button>
-                                    <button class="dropdown-item" id="li">Amarillo</button>
-                                </div>
-                            
-                            <a class="dropdown-item" id="li"><img src="Iconos/file-regular-24.png">    Archivos</a>
-                            <a class="dropdown-item" id="li"><img src="Iconos/power-off-regular-24.png">    Apagar</a>
+                <div class="navbar-nav icon">
+                    <div class="nav-item dropdown dropup home">
+                        <a class="nav-link" data-bs-toggle="dropdown"><img src="Iconos/home-alt-2-regular-24.png"></a>
+                        <div class="dropdown-menu submenu">
+                            <a class="dropdown-item li"><img src="Iconos/usuario.png">  Perfil</a>
+                            <a class="dropdown-item li"><img src="Iconos/cog-regular-24.png">    Configuración</a>
+                            <a class="dropdown-item li"><img src="Iconos/paleta-de-color.png">    Temas</a>
+                            <a class="dropdown-item li"><img src="Iconos/file-regular-24.png">    Archivos</a>
+                            <a class="dropdown-item li"><img src="Iconos/power-off-regular-24.png">    Apagar</a>
                         </div>
                     </div>
                 </div>
@@ -66,22 +57,22 @@
                 <div class="navbar-nav ms-auto">
 
                 <div>
-                    <div class="dropup" id="icon">
+                    <div class="dropup icon">
                         <a class="nav-link" data-bs-toggle="dropdown"><img src="Iconos/ethernet.png"></a>
                     </div>
                 </div>
                 
                 <div>
-                    <div class="dropup" id="icon">
+                    <div class="dropup icon">
                         <a class="nav-link" data-bs-toggle="dropdown"><img src="Iconos/shield-x-solid-24.png"></a>
                     </div>
                 </div>
 
                 <div>
-                    <div class="dropup" id="icon">
+                    <div class="dropup icon">
                         <a class="nav-link" data-bs-toggle="dropdown"><img src="Iconos/volume-full-solid-24 (1).png"></a>
                         <div class="dropdown-menu" id="submenu-3">
-                            <div id="barra-vol">
+                            <div class="barra-vol">
                                 <label for="volumen"></label>
                                 <div>
                                     <input type="range" id="volumen" name="volumen" min="0" max="100" value="50" orient="vertical">
@@ -96,9 +87,9 @@
                         <a href="#" class="nav-link" data-bs-toggle="dropdown" id="reloj"><a>
                         
                         <div class="dropdown-menu" id="submenu-2">
-                            <a id="li-2">Calendario</a>
+                            <a class="li-2">Calendario</a>
                             <div id="calendar">
-                                <div id="borde">
+                                <div>
                                     <div class="cabecera">
                                         <div class="month" id=".month"></div>
                                         <div class="year"></div>
